@@ -10,8 +10,6 @@ branches:
 #script:
 #  - dotnet build
 #  - dotnet test
-before_install:
-  - gem install rake
 before_script:
   - chmod -R a+x scripts
 script:
@@ -19,6 +17,8 @@ script:
   - ./scripts/test.sh
 after_success:
   - ./scripts/dockerize.sh
+before_install:
+  - gem install rake
 notifications:
   email:
     on_success: always
