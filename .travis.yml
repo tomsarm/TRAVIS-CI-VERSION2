@@ -7,19 +7,18 @@ branches:
   only:
     - main
 #    - develop
-#script:
-#  - dotnet build
-#  - dotnet test
-before_script:
-  - chmod -R a+x scripts
-script:
-  - ./scripts/build.sh
-  - ./scripts/test.sh
-after_success:
-  - ./scripts/dockerize.sh
-before_install:
-  - gem install rake
-notifications:
-  email:
-    on_success: always
-    on_failure: always
+script: 
+    - dotnet build 
+    - dotnet test
+# {START travis_deploy}
+deploy:
+    provider: gae
+    # Skip cleanup so api api_key.py and vendored dependencies are still there
+    skip_cleanup: true
+    keyfile: devopsene2023-d7ab9d20f389-llave_service_Google_Kubernetes.json
+    project: devopsene2023
+    version: service-demo
+    default: true
+    on: 
+      all_branches: true
+#{END travis_deploy}
